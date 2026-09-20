@@ -1,389 +1,233 @@
-// ============================================================
-// SHOPSPHERE - THIRANEX TASK 5
-// Shopping Cart Functionality
-// ============================================================
-
-
-// ============================================================
-// LOAD CART
-// ============================================================
-
 function getCart() {
 
-  return JSON.parse(
-    localStorage.getItem("cart")
-  ) || [];
-
+    return JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
 }
-
-
-// ============================================================
-// SAVE CART
-// ============================================================
 
 function saveCart(cart) {
 
-  localStorage.setItem(
-    "cart",
-    JSON.stringify(cart)
-  );
-
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 }
-
-
-// ============================================================
-// UPDATE CART COUNT
-// ============================================================
 
 function updateCartCount() {
 
-  const cart = getCart();
+    const cart = getCart();
 
-  const cartCount =
-    document.getElementById("cart-count");
-
-  if (cartCount) {
-
-    const totalItems =
-      cart.reduce(
-        (total, item) => total + item.quantity,
+    const count = cart.reduce(
+        function(total, item) {
+            return total + item.quantity;
+        },
         0
-      );
+    );
 
-    cartCount.textContent = totalItems;
+    const element =
+        document.getElementById("cart-count");
 
-  }
-
+    if (element) {
+        element.textContent = count;
+    }
 }
-
-
-// ============================================================
-// DISPLAY CART
-// ============================================================
 
 function displayCart() {
 
-  const cart = getCart();
+    const cart = getCart();
 
-  const container =
-    document.getElementById("cart-container");
+    const container =
+        document.getElementById("cart-container");
 
-  const emptyCart =
-    document.getElementById("empty-cart");
+    const emptyCart =
+        document.getElementById("empty-cart");
 
-  const cartSummary =
-    document.getElementById("cart-summary");
+    const summary =
+        document.getElementById("cart-summary");
 
-  if (!container) {
-    return;
-  }
+    container.innerHTML = "";
 
-  container.innerHTML = "";
+    if (cart.length === 0) {
 
+        emptyCart.style.display = "block";
+        summary.style.display = "none";
 
-  // ================= EMPTY CART =================
+        updateCartCount();
 
-  if (cart.length === 0) {
-
-    if (emptyCart) {
-      emptyCart.style.display = "block";
+        return;
     }
 
-    if (cartSummary) {
-      cartSummary.style.display = "none";
-    }
-
-    return;
-
-  }
-
-
-  if (emptyCart) {
     emptyCart.style.display = "none";
-  }
+    summary.style.display = "block";
 
-  if (cartSummary) {
-    cartSummary.style.display = "block";
-  }
+    cart.forEach(function(item) {
 
+        const cartItem =
+            document.createElement("div");
 
-  // ================= CART ITEMS =================
+        cartItem.className = "cart-item";
 
-  cart.forEach(item => {
+        cartItem.innerHTML = `
 
-    const cartItem =
-      document.createElement("div");
+            <div class="cart-item-image">
+                ${item.icon}
+            </div>
 
-    cartItem.className = "cart-item";
+            <div class="cart-item-info">
 
+                <h3>${item.name}</h3>
 
-    cartItem.innerHTML = `
+                <p>₹${item.price}</p>
 
-      <div class="cart-item-image">
-        ${item.icon}
-      </div>
+                <div class="quantity-controls">
 
-      <div class="cart-item-info">
+                    <button
+                        onclick="changeQuantity(${item.id}, -1)"
+                    >
+                        −
+                    </button>
 
-        <h3>${item.name}</h3>
+                    <span>${item.quantity}</span>
 
-        <p>
-          ₹${item.price.toLocaleString("en-IN")}
-          each
-        </p>
+                    <button
+                        onclick="changeQuantity(${item.id}, 1)"
+                    >
+                        +
+                    </button>
 
-      </div>
+                </div>
 
+            </div>
 
-      <div class="quantity-controls">
+            <div class="cart-item-total">
 
-        <button
-          onclick="changeQuantity(${item.id}, -1)"
-        >
-          −
-        </button>
+                <strong>
+                    ₹${item.price * item.quantity}
+                </strong>
 
-        <span>
-          ${item.quantity}
-        </span>
+                <button
+                    class="remove-item-btn"
+                    onclick="removeFromCart(${item.id})"
+                >
+                    Remove
+                </button>
 
-        <button
-          onclick="changeQuantity(${item.id}, 1)"
-        >
-          +
-        </button>
+            </div>
+        `;
 
-      </div>
+        container.appendChild(cartItem);
+    });
 
-
-      <strong class="cart-item-total">
-        ₹${(
-          item.price * item.quantity
-        ).toLocaleString("en-IN")}
-      </strong>
-
-
-      <button
-        class="remove-item-btn"
-        onclick="removeFromCart(${item.id})"
-      >
-        🗑️
-      </button>
-
-    `;
-
-
-    container.appendChild(cartItem);
-
-  });
-
-
-  updateSummary();
-
+    updateSummary();
+    updateCartCount();
 }
 
+function changeQuantity(id, amount) {
 
-// ============================================================
-// CHANGE QUANTITY
-// ============================================================
+    const cart = getCart();
 
-function changeQuantity(
-  productId,
-  change
-) {
+    const item =
+        cart.find(function(product) {
+            return product.id === id;
+        });
 
-  const cart = getCart();
+    if (!item) {
+        return;
+    }
 
-  const item =
-    cart.find(
-      product => product.id === productId
-    );
+    item.quantity += amount;
 
-  if (!item) {
-    return;
-  }
+    if (item.quantity <= 0) {
 
-  item.quantity += change;
+        const index =
+            cart.findIndex(function(product) {
+                return product.id === id;
+            });
 
-
-  // Remove if quantity becomes zero
-
-  if (item.quantity <= 0) {
-
-    const updatedCart =
-      cart.filter(
-        product => product.id !== productId
-      );
-
-    saveCart(updatedCart);
-
-  } else {
+        cart.splice(index, 1);
+    }
 
     saveCart(cart);
 
-  }
-
-
-  displayCart();
-  updateCartCount();
-
+    displayCart();
 }
 
+function removeFromCart(id) {
 
-// ============================================================
-// REMOVE PRODUCT
-// ============================================================
+    let cart = getCart();
 
-function removeFromCart(productId) {
+    cart = cart.filter(function(item) {
+        return item.id !== id;
+    });
 
-  const cart = getCart();
+    saveCart(cart);
 
-  const updatedCart =
-    cart.filter(
-      item => item.id !== productId
-    );
-
-  saveCart(updatedCart);
-
-  displayCart();
-  updateCartCount();
-
+    displayCart();
 }
-
-
-// ============================================================
-// CLEAR CART
-// ============================================================
 
 function clearCart() {
 
-  const cart = getCart();
+    if (confirm("Are you sure you want to clear your cart?")) {
 
-  if (cart.length === 0) {
-    return;
-  }
+        localStorage.removeItem("cart");
 
+        displayCart();
+    }
+}
 
-  const confirmation =
-    confirm(
-      "Are you sure you want to clear your cart?"
+function updateSummary() {
+
+    const cart = getCart();
+
+    const totalItems =
+        cart.reduce(
+            function(total, item) {
+                return total + item.quantity;
+            },
+            0
+        );
+
+    const totalPrice =
+        cart.reduce(
+            function(total, item) {
+                return total + item.price * item.quantity;
+            },
+            0
+        );
+
+    document.getElementById("total-items")
+        .textContent = totalItems;
+
+    document.getElementById("total-price")
+        .textContent = totalPrice;
+}
+
+function checkout() {
+
+    const cart = getCart();
+
+    if (cart.length === 0) {
+
+        alert("Your cart is empty.");
+
+        return;
+    }
+
+    alert(
+        "🎉 Order placed successfully! Thank you for shopping with ShopSphere."
     );
-
-
-  if (confirmation) {
 
     localStorage.removeItem("cart");
 
     displayCart();
-    updateCartCount();
-
-  }
-
 }
-
-
-// ============================================================
-// UPDATE SUMMARY
-// ============================================================
-
-function updateSummary() {
-
-  const cart = getCart();
-
-  let totalItems = 0;
-  let totalPrice = 0;
-
-
-  cart.forEach(item => {
-
-    totalItems += item.quantity;
-
-    totalPrice +=
-      item.price * item.quantity;
-
-  });
-
-
-  const totalItemsElement =
-    document.getElementById("total-items");
-
-  const totalPriceElement =
-    document.getElementById("total-price");
-
-
-  if (totalItemsElement) {
-
-    totalItemsElement.textContent =
-      totalItems;
-
-  }
-
-
-  if (totalPriceElement) {
-
-    totalPriceElement.textContent =
-      "₹" +
-      totalPrice.toLocaleString("en-IN");
-
-  }
-
-}
-
-
-// ============================================================
-// CHECKOUT
-// ============================================================
-
-function checkout() {
-
-  const cart = getCart();
-
-  if (cart.length === 0) {
-
-    alert(
-      "Your cart is empty. Please add products first."
-    );
-
-    return;
-
-  }
-
-
-  alert(
-    "🎉 Thank you for shopping with ShopSphere!\n\n" +
-    "Your order has been placed successfully."
-  );
-
-
-  localStorage.removeItem("cart");
-
-  displayCart();
-  updateCartCount();
-
-}
-
-
-// ============================================================
-// MOBILE MENU
-// ============================================================
 
 function toggleMenu() {
 
-  const menu =
-    document.getElementById("mobile-menu");
-
-  if (menu) {
+    const menu =
+        document.getElementById("mobile-menu");
 
     menu.classList.toggle("show");
-
-  }
-
 }
 
-
-// ============================================================
-// INITIALIZE CART PAGE
-// ============================================================
-
 displayCart();
-updateCartCount();
