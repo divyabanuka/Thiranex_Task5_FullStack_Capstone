@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ShopSphere Products">
     <title>Products | ShopSphere</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,7 +19,9 @@
             <a href="index.html">Home</a>
             <a href="product.html">Products</a>
             <a href="about.html">About</a>
-            <a href="cart.html">🛒 Cart <span id="cart-count">0</span></a>
+            <a href="cart.html">
+                🛒 Cart <span id="cart-count">0</span>
+            </a>
         </nav>
 
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
@@ -40,7 +41,9 @@
     <div class="container">
 
         <h1>Our Products</h1>
-        <p>Find products you'll love.</p>
+        <p class="products-subtitle">
+            Find products you'll love.
+        </p>
 
         <div class="product-controls">
 
@@ -51,7 +54,10 @@
                 oninput="filterProducts()"
             >
 
-            <select id="category-filter" onchange="filterProducts()">
+            <select
+                id="category-filter"
+                onchange="filterProducts()"
+            >
                 <option value="all">All Categories</option>
                 <option value="electronics">Electronics</option>
                 <option value="fashion">Fashion</option>
@@ -74,7 +80,9 @@
 
 <footer class="footer">
     <div class="container">
+
         <h3>🛍️ ShopSphere</h3>
+
         <p>Modern E-Commerce Product Catalog.</p>
 
         <div class="footer-links">
@@ -87,6 +95,7 @@
         <p class="copyright">
             © 2026 ShopSphere | Thiranex Task 5
         </p>
+
     </div>
 </footer>
 
