@@ -1,217 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description"
-        content="ShopSphere Shopping Cart">
-
-  <title>Shopping Cart | ShopSphere</title>
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | ShopSphere</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
-
-  <header class="header">
+<header class="header">
 
     <div class="container nav">
 
-      <a href="index.html" class="logo">
-        🛍️ ShopSphere
-      </a>
-
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="cart.html">
-          🛒 Cart <span id="cart-count">0</span>
+        <a href="index.html" class="logo">
+            🛍️ ShopSphere
         </a>
-      </nav>
 
-      <button class="menu-btn" onclick="toggleMenu()">
-        ☰
-      </button>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="cart.html">
+                🛒 Cart <span id="cart-count">0</span>
+            </a>
+        </nav>
+
+        <button class="menu-btn" onclick="toggleMenu()">
+            ☰
+        </button>
 
     </div>
 
-  </header>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="product.html">Products</a>
+        <a href="about.html">About</a>
+        <a href="cart.html">🛒 Cart</a>
+    </div>
 
+</header>
 
-  <!-- ================= MOBILE MENU ================= -->
+<main>
 
-  <div id="mobile-menu" class="mobile-menu">
+<section class="cart-section">
 
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="about.html">About</a>
-    <a href="cart.html">🛒 Cart</a>
+    <div class="container">
 
-  </div>
+        <h1>Your Shopping Cart</h1>
 
+        <div id="cart-container"></div>
 
-  <!-- ================= CART ================= -->
+        <div id="empty-cart" class="empty-cart">
 
-  <main>
+            <h2>Your cart is empty 🛒</h2>
 
-    <section class="cart-section">
+            <p>Add some products to get started.</p>
 
-      <div class="container">
-
-        <div class="section-title">
-
-          <span>YOUR SHOPPING CART</span>
-
-          <h1>Shopping Cart 🛒</h1>
-
-          <p>
-            Review your selected products before checkout.
-          </p>
+            <a href="product.html" class="btn">
+                Browse Products
+            </a>
 
         </div>
 
+        <div id="cart-summary" class="cart-summary">
 
-        <div id="cart-container">
+            <h2>Order Summary</h2>
 
-          <!-- Cart items are loaded using JavaScript -->
+            <p>
+                <span>Items</span>
+                <span id="total-items">0</span>
+            </p>
 
-        </div>
+            <p>
+                <span>Total</span>
+                <strong>₹<span id="total-price">0</span></strong>
+            </p>
 
+            <div class="cart-actions">
 
-        <!-- ================= CART SUMMARY ================= -->
+                <button
+                    class="clear-cart-btn"
+                    onclick="clearCart()"
+                >
+                    Clear Cart
+                </button>
 
-        <div
-          id="cart-summary"
-          class="cart-summary"
-          style="display: none;"
-        >
+                <button
+                    class="checkout-btn"
+                    onclick="checkout()"
+                >
+                    Checkout
+                </button>
 
-          <div>
-
-            <span>Total Items</span>
-
-            <strong id="total-items">
-              0
-            </strong>
-
-          </div>
-
-
-          <div>
-
-            <span>Total Price</span>
-
-            <strong id="total-price">
-              ₹0
-            </strong>
-
-          </div>
-
-
-          <div class="cart-actions">
-
-            <button
-              class="clear-cart-btn"
-              onclick="clearCart()"
-            >
-              🗑️ Clear Cart
-            </button>
-
-            <button
-              class="checkout-btn"
-              onclick="checkout()"
-            >
-              💳 Checkout
-            </button>
-
-          </div>
+            </div>
 
         </div>
 
+    </div>
 
-        <!-- ================= EMPTY CART ================= -->
+</section>
 
-        <div
-          id="empty-cart"
-          class="empty-cart"
-          style="display: none;"
-        >
+</main>
 
-          <div class="empty-cart-icon">
-            🛒
-          </div>
+<footer class="footer">
 
-          <h2>Your cart is empty</h2>
-
-          <p>
-            Add some products to your cart to get started.
-          </p>
-
-          <a
-            href="products.html"
-            class="btn primary-btn"
-          >
-            Browse Products
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer class="footer">
-
-    <div class="container footer-content">
-
-      <div>
+    <div class="container">
 
         <h3>🛍️ ShopSphere</h3>
 
-        <p>
-          A modern e-commerce product catalog
-          developed for Thiranex Task 5.
+        <p>Modern E-Commerce Product Catalog.</p>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 ShopSphere | Thiranex Task 5
         </p>
 
-      </div>
-
-      <div>
-
-        <h4>Quick Links</h4>
-
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="about.html">About</a>
-        <a href="cart.html">Cart</a>
-
-      </div>
-
     </div>
 
+</footer>
 
-    <div class="footer-bottom">
-
-      <p>
-        © 2026 ShopSphere | Thiranex Task 5
-      </p>
-
-    </div>
-
-  </footer>
-
-
-  <!-- ================= JAVASCRIPT ================= -->
-
-  <script src="cart.js"></script>
+<script src="cart.js"></script>
 
 </body>
 </html>
