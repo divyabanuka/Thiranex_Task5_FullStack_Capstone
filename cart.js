@@ -1,12 +1,10 @@
 function getCart() {
-
     return JSON.parse(
         localStorage.getItem("cart")
     ) || [];
 }
 
 function saveCart(cart) {
-
     localStorage.setItem(
         "cart",
         JSON.stringify(cart)
@@ -17,12 +15,10 @@ function updateCartCount() {
 
     const cart = getCart();
 
-    const count = cart.reduce(
-        function(total, item) {
+    const count =
+        cart.reduce(function(total, item) {
             return total + item.quantity;
-        },
-        0
-    );
+        }, 0);
 
     const element =
         document.getElementById("cart-count");
@@ -68,7 +64,6 @@ function displayCart() {
         cartItem.className = "cart-item";
 
         cartItem.innerHTML = `
-
             <div class="cart-item-image">
                 ${item.icon}
             </div>
@@ -148,7 +143,6 @@ function changeQuantity(id, amount) {
     }
 
     saveCart(cart);
-
     displayCart();
 }
 
@@ -161,7 +155,6 @@ function removeFromCart(id) {
     });
 
     saveCart(cart);
-
     displayCart();
 }
 
@@ -170,7 +163,6 @@ function clearCart() {
     if (confirm("Are you sure you want to clear your cart?")) {
 
         localStorage.removeItem("cart");
-
         displayCart();
     }
 }
@@ -180,20 +172,14 @@ function updateSummary() {
     const cart = getCart();
 
     const totalItems =
-        cart.reduce(
-            function(total, item) {
-                return total + item.quantity;
-            },
-            0
-        );
+        cart.reduce(function(total, item) {
+            return total + item.quantity;
+        }, 0);
 
     const totalPrice =
-        cart.reduce(
-            function(total, item) {
-                return total + item.price * item.quantity;
-            },
-            0
-        );
+        cart.reduce(function(total, item) {
+            return total + item.price * item.quantity;
+        }, 0);
 
     document.getElementById("total-items")
         .textContent = totalItems;
@@ -207,9 +193,7 @@ function checkout() {
     const cart = getCart();
 
     if (cart.length === 0) {
-
         alert("Your cart is empty.");
-
         return;
     }
 
@@ -223,11 +207,9 @@ function checkout() {
 }
 
 function toggleMenu() {
-
-    const menu =
-        document.getElementById("mobile-menu");
-
-    menu.classList.toggle("show");
+    document
+        .getElementById("mobile-menu")
+        .classList.toggle("show");
 }
 
 displayCart();
