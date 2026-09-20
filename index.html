@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ShopSphere - Modern E-Commerce Product Catalog">
     <title>ShopSphere | E-Commerce</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,7 +12,6 @@
 
 <header class="header">
     <div class="container nav">
-
         <a href="index.html" class="logo">🛍️ ShopSphere</a>
 
         <nav class="nav-links">
@@ -38,7 +36,6 @@
 
 <section class="hero">
     <div class="container hero-content">
-
         <p class="welcome">✨ Welcome to ShopSphere</p>
 
         <h1>Discover Products You'll Love.</h1>
@@ -52,13 +49,11 @@
             <a href="product.html" class="btn">Explore Products</a>
             <a href="about.html" class="btn secondary-btn">Learn More</a>
         </div>
-
     </div>
 </section>
 
 <section class="features">
     <div class="container">
-
         <h2>Shop Smart</h2>
         <p class="section-subtitle">Simple. Fast. Responsive.</p>
 
@@ -88,13 +83,9 @@
 
 <section class="cta">
     <div class="container">
-
         <h2>Ready to Start Shopping?</h2>
-
         <p>Explore our complete product catalog.</p>
-
         <a href="product.html" class="btn">View Products →</a>
-
     </div>
 </section>
 
@@ -102,7 +93,6 @@
 
 <footer class="footer">
     <div class="container">
-
         <h3>🛍️ ShopSphere</h3>
 
         <p>
@@ -122,14 +112,12 @@
         <p class="copyright">
             © 2026 ShopSphere | Thiranex Task 5
         </p>
-
     </div>
 </footer>
 
 <script>
 function toggleMenu() {
-    const menu = document.getElementById("mobile-menu");
-    menu.classList.toggle("show");
+    document.getElementById("mobile-menu").classList.toggle("show");
 }
 
 function updateCartCount() {
@@ -139,10 +127,10 @@ function updateCartCount() {
         return total + item.quantity;
     }, 0);
 
-    const cartCount = document.getElementById("cart-count");
+    const element = document.getElementById("cart-count");
 
-    if (cartCount) {
-        cartCount.textContent = count;
+    if (element) {
+        element.textContent = count;
     }
 }
 
