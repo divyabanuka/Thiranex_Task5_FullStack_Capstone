@@ -140,8 +140,9 @@ function displayProducts(list) {
 
 function filterProducts() {
 
-    const searchInput =
-        document.getElementById("search-input").value
+    const search =
+        document.getElementById("search-input")
+        .value
         .toLowerCase();
 
     const category =
@@ -150,7 +151,7 @@ function filterProducts() {
     const filtered = products.filter(function(product) {
 
         const matchesSearch =
-            product.name.toLowerCase().includes(searchInput);
+            product.name.toLowerCase().includes(search);
 
         const matchesCategory =
             category === "all" ||
@@ -180,7 +181,6 @@ function addToCart(productId) {
     if (existing) {
         existing.quantity++;
     } else {
-
         cart.push({
             id: product.id,
             name: product.name,
@@ -190,7 +190,10 @@ function addToCart(productId) {
         });
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 
     updateCartCount();
 
@@ -216,11 +219,9 @@ function updateCartCount() {
 }
 
 function toggleMenu() {
-
-    const menu =
-        document.getElementById("mobile-menu");
-
-    menu.classList.toggle("show");
+    document
+        .getElementById("mobile-menu")
+        .classList.toggle("show");
 }
 
 displayProducts(products);
