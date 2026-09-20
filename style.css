@@ -646,3 +646,153 @@ button {
   }
 
 }
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+
+.about-section {
+  padding: 70px 0;
+  min-height: 70vh;
+}
+
+.about-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 35px;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 35px;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.about-icon {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+}
+
+.about-card h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.about-card p {
+  color: #667085;
+  margin-bottom: 15px;
+}
+
+.about-title {
+  margin-bottom: 35px;
+}
+
+.tech-section {
+  padding: 70px 0;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+.tech-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+  padding: 25px 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.tech-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.tech-card strong {
+  display: block;
+  color: #2563eb;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.tech-card span {
+  color: #667085;
+  font-size: 13px;
+}
+
+.internship-card {
+  background: #eff6ff;
+  border-radius: 20px;
+  padding: 35px;
+  margin: 30px 0 50px;
+  border: 1px solid #dbeafe;
+}
+
+.internship-card h2 {
+  margin-bottom: 15px;
+}
+
+.internship-card p {
+  color: #475467;
+  margin-bottom: 12px;
+}
+
+.about-cta {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.about-cta h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.about-cta p {
+  color: #667085;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 800px) {
+
+  .about-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about-icon {
+    margin: auto;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .about-section {
+    padding: 45px 0;
+  }
+
+  .about-card {
+    padding: 25px 20px;
+  }
+
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-cta h2 {
+    font-size: 28px;
+  }
+
+}
